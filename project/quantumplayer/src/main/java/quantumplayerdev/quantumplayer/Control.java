@@ -4,13 +4,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 import org.slf4j.LoggerFactory;
 
 import com.mpatric.mp3agic.Mp3File;
 
 public class Control {
 	org.slf4j.Logger logger = LoggerFactory.getLogger(Control.class);
-	private List<Mp3File> songsMP3 = new ArrayList<Mp3File>();
 	private List<Song> songs = new ArrayList<Song>();
 
 	public void setFolders(List<File> files) {
@@ -37,6 +40,18 @@ public class Control {
 			}
 		} catch (Exception ex) {
 			logger.debug(ex.getMessage());
+		}
+	}
+
+	public void playSong(Song song) {
+		try {
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(song.getPath());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (Exception ex) {
+			System.out.println("Error with playing sound.");
+			ex.printStackTrace();
 		}
 	}
 
