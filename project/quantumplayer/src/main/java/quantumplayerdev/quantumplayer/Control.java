@@ -10,18 +10,6 @@ import com.mpatric.mp3agic.Mp3File;
 
 public class Control {
 	org.slf4j.Logger logger = LoggerFactory.getLogger(Control.class);
-
-	public static void main(String[] args) {
-		Control ctr = new Control();
-		List<File> files = new ArrayList<File>();
-		files.add(new File(""));
-		ctr.setFolders(files);
-		List<Song> songs = ctr.loadFiles();
-		for (Song song : songs) {
-			System.out.println(song.getPath());
-		}
-	}
-
 	private List<Mp3File> songsMP3 = new ArrayList<Mp3File>();
 	private List<Song> songs = new ArrayList<Song>();
 
@@ -31,9 +19,6 @@ public class Control {
 	}
 
 	public List<Song> loadFiles() {
-		for (Mp3File mp3File : songsMP3) {
-			Song song = Song.getSongFromMP3(mp3File);
-		}
 		return songs;
 	}
 
@@ -45,7 +30,7 @@ public class Control {
 						addFiles(file.listFiles());
 					} else {
 						if (file.getPath().endsWith(".mp3")) {
-							songsMP3.add(new Mp3File(file));
+							songs.add(Song.getSongFromMP3(new Mp3File(file)));
 						}
 					}
 				}
