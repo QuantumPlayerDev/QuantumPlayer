@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 
-import com.mpatric.mp3agic.ID3v1;
-import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.Mp3File;
 
 public class Control {
@@ -16,9 +14,12 @@ public class Control {
 	public static void main(String[] args) {
 		Control ctr = new Control();
 		List<File> files = new ArrayList<File>();
-		files.add(new File("C:\\Users\\reger"));
+		files.add(new File(""));
 		ctr.setFolders(files);
-		ctr.loadFiles();
+		List<Song> songs = ctr.loadFiles();
+		for (Song song : songs) {
+			System.out.println(song.getPath());
+		}
 	}
 
 	private List<Mp3File> songsMP3 = new ArrayList<Mp3File>();
@@ -31,19 +32,7 @@ public class Control {
 
 	public List<Song> loadFiles() {
 		for (Mp3File mp3File : songsMP3) {
-			Song song = new Song();
-			if (mp3File.hasId3v1Tag()) {
-				ID3v1 tag = mp3File.getId3v1Tag();
-				song.setTitle(tag.getTitle());
-				song.setAlbum(tag.getAlbum());
-			} else if (mp3File.hasId3v2Tag()) {
-				ID3v2 tag = mp3File.getId3v2Tag();
-				song.setTitle(tag.getTitle());
-				song.setAlbum(tag.getAlbum());
-			} else {
-
-			}
-			songs.add(song);
+			Song song = Song.getSongFromMP3(mp3File);
 		}
 		return songs;
 	}
