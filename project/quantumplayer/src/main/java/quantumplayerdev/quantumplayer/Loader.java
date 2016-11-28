@@ -44,7 +44,7 @@ public class Loader {
 
 	public void playSong(Song song) {
 		try {
-			Media media = new Media(song.getPath().getAbsolutePath());
+			Media media = new Media(song.getPath());
 			MediaPlayer player = new MediaPlayer(media);
 			player.play();
 		} catch (Exception ex) {

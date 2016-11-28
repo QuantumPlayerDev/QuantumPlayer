@@ -1,13 +1,11 @@
 package quantumplayerdev.quantumplayer;
 
-import java.io.File;
-
 import com.mpatric.mp3agic.ID3v1;
 import com.mpatric.mp3agic.Mp3File;
 
 public class Song {
 	private String id;
-	private File path;
+	private String path;
 	private Mp3File mp3;
 
 	private String title;
@@ -23,11 +21,11 @@ public class Song {
 		this.id = id;
 	}
 
-	public File getPath() {
+	public String getPath() {
 		return path;
 	}
 
-	public void setPath(File path) {
+	public void setPath(String path) {
 		this.path = path;
 	}
 
@@ -73,7 +71,7 @@ public class Song {
 
 	public static Song getSongFromMP3(Mp3File mp3File) {
 		Song song = new Song();
-		song.setPath(new File(mp3File.getFilename()));
+		song.setPath(mp3File.getFilename());
 		song.setMp3(mp3File);
 		ID3v1 tag = null;
 		if (mp3File.hasId3v1Tag()) {

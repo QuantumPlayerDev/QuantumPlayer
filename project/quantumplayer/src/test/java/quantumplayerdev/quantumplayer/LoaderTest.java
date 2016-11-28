@@ -11,9 +11,9 @@ public class LoaderTest {
 	public void testPlay() throws Exception {
 		Loader loader = new Loader();
 		List<File> files = new ArrayList<File>();
-		String path = System.getProperty("user.dir") + "//src//test//resources//";
-		System.out.println(path);
-		files.add(new File(path));
+		File file = new File(System.getProperty("user.dir") + "\\src\\test\\resources\\");
+		System.out.println(file.getAbsolutePath());
+		files.add(file);
 		loader.setFolders(files);
 		List<Song> songs = loader.loadFiles();
 		System.out.println("Found songs: " + songs.size());
