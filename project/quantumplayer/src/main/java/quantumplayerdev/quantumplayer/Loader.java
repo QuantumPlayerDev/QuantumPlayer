@@ -11,8 +11,8 @@ import com.mpatric.mp3agic.Mp3File;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-public class Control {
-	org.slf4j.Logger logger = LoggerFactory.getLogger(Control.class);
+public class Loader {
+	org.slf4j.Logger logger = LoggerFactory.getLogger(Loader.class);
 	private List<Song> songs = new ArrayList<Song>();
 
 	public void setFolders(List<File> files) {

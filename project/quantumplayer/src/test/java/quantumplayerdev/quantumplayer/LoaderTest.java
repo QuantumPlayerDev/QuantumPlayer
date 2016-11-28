@@ -9,14 +9,14 @@ import org.junit.Test;
 public class LoaderTest {
 	@Test
 	public void testPlay() throws Exception {
-		Control control = new Control();
+		Loader loader = new Loader();
 		List<File> files = new ArrayList<File>();
-		String path = System.getProperty("user.dir") + "\\src\\test\\resources\\";
+		String path = System.getProperty("user.dir") + "//src//test//resources//";
 		System.out.println(path);
 		files.add(new File(path));
-		control.setFolders(files);
-		List<Song> songs = control.loadFiles();
+		loader.setFolders(files);
+		List<Song> songs = loader.loadFiles();
 		System.out.println("Found songs: " + songs.size());
-		control.playSong(songs.get(0));
+		loader.playSong(songs.get(0));
 	}
 }
