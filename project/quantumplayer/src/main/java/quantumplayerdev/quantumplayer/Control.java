@@ -4,13 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-
 import org.slf4j.LoggerFactory;
 
 import com.mpatric.mp3agic.Mp3File;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Control {
 	org.slf4j.Logger logger = LoggerFactory.getLogger(Control.class);
@@ -45,10 +44,9 @@ public class Control {
 
 	public void playSong(Song song) {
 		try {
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(song.getPath());
-			Clip clip = AudioSystem.getClip();
-			clip.open(audioInputStream);
-			clip.start();
+			Media media = new Media(song.getPath().getAbsolutePath());
+			MediaPlayer player = new MediaPlayer(media);
+			player.play();
 		} catch (Exception ex) {
 			System.out.println("Error with playing sound.");
 			ex.printStackTrace();

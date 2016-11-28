@@ -3,7 +3,6 @@ package quantumplayerdev.quantumplayer;
 import java.io.File;
 
 import com.mpatric.mp3agic.ID3v1;
-import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.Mp3File;
 
 public class Song {
@@ -13,6 +12,8 @@ public class Song {
 
 	private String title;
 	private String album;
+	private String artist;
+	private String year;
 
 	public String getId() {
 		return id;
@@ -46,16 +47,46 @@ public class Song {
 		this.album = album;
 	}
 
+	public String getArtist() {
+		return artist;
+	}
+
+	public void setArtist(String artist) {
+		this.artist = artist;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public Mp3File getMp3() {
+		return mp3;
+	}
+
+	public void setMp3(Mp3File mp3) {
+		this.mp3 = mp3;
+	}
+
 	public static Song getSongFromMP3(Mp3File mp3File) {
 		Song song = new Song();
+		song.setPath(new File(mp3File.getFilename()));
+		song.setMp3(mp3File);
+		ID3v1 tag = null;
 		if (mp3File.hasId3v1Tag()) {
-			ID3v1 tag = mp3File.getId3v1Tag();
-			song.setTitle(tag.getTitle());
-			song.setAlbum(tag.getAlbum());
+			tag = mp3File.getId3v1Tag();
 		} else if (mp3File.hasId3v2Tag()) {
-			ID3v2 tag = mp3File.getId3v2Tag();
-			song.setTitle(tag.getTitle());
-			song.setAlbum(tag.getAlbum());
+			tag = mp3File.getId3v2Tag();
+		}
+
+		song.setTitle(tag.getTitle());
+		song.setAlbum(tag.getAlbum());
+		song.setArtist(tag.getArtist());
+		song.setYear(tag.getYear());
+		if (mp3File.hasId3v2Tag()) {
 		}
 		return song;
 	}
