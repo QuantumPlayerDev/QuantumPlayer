@@ -1,6 +1,7 @@
 package quantumplayerdev.quantumplayer;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.mpatric.mp3agic.Mp3File;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javazoom.jl.player.advanced.AdvancedPlayer;
 
 public class Loader {
 	org.slf4j.Logger logger = LoggerFactory.getLogger(Loader.class);
@@ -44,8 +44,8 @@ public class Loader {
 
 	public void playSong(Song song) {
 		try {
-			Media media = new Media(song.getPath());
-			MediaPlayer player = new MediaPlayer(media);
+			FileInputStream fis = new FileInputStream(new File(song.getPath()));
+			AdvancedPlayer player = new AdvancedPlayer(fis);
 			player.play();
 		} catch (Exception ex) {
 			System.out.println("Error with playing sound.");
