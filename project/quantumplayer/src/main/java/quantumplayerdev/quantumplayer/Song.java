@@ -1,12 +1,8 @@
 package quantumplayerdev.quantumplayer;
 
-import com.mpatric.mp3agic.ID3v1;
-import com.mpatric.mp3agic.Mp3File;
-
 public class Song {
 	private String id;
 	private String path;
-	private Mp3File mp3;
 
 	private String title;
 	private String album;
@@ -60,33 +56,4 @@ public class Song {
 	public void setYear(String year) {
 		this.year = year;
 	}
-
-	public Mp3File getMp3() {
-		return mp3;
-	}
-
-	public void setMp3(Mp3File mp3) {
-		this.mp3 = mp3;
-	}
-
-	public static Song getSongFromMP3(Mp3File mp3File) {
-		Song song = new Song();
-		song.setPath(mp3File.getFilename());
-		song.setMp3(mp3File);
-		ID3v1 tag = null;
-		if (mp3File.hasId3v1Tag()) {
-			tag = mp3File.getId3v1Tag();
-		} else if (mp3File.hasId3v2Tag()) {
-			tag = mp3File.getId3v2Tag();
-		}
-
-		song.setTitle(tag.getTitle());
-		song.setAlbum(tag.getAlbum());
-		song.setArtist(tag.getArtist());
-		song.setYear(tag.getYear());
-		if (mp3File.hasId3v2Tag()) {
-		}
-		return song;
-	}
-
 }
