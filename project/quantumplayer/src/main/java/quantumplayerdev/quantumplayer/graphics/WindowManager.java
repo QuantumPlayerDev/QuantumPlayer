@@ -1,5 +1,7 @@
 package quantumplayerdev.quantumplayer.graphics;
 
+import org.junit.Test;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -13,7 +15,9 @@ public class WindowManager extends Application {
 		super();
 	}
 	
-	public static void main(String[] args) {
+	@Test
+	public void run() {
+		String[] args = null;
 		launch(args);
 	}
 	

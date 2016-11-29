@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
 
+import org.junit.Test;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,7 +20,9 @@ import javafx.stage.Stage;
 
 public class NotificationWindowTest extends Application {
 
-	public static void main(String[] args) {
+	@Test
+	public void run() {
+		String[] args = null;
 		launch(args);
 	}
 	
