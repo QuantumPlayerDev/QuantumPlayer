@@ -28,11 +28,19 @@ public class FolderScanner {
 					if (file.isDirectory()) {
 						addFiles(file.listFiles());
 					} else {
-						// load song
-						SongLoader songLoader = new SongLoader();
-						Song song = songLoader.getSongFromFile(file);
-						if (song != null) {
-							songs.add(songLoader.getSongFromFile(file));
+						// Check File
+						if (file.getPath().endsWith(".mp3") || file.getPath().endsWith(".mp4")
+								|| file.getPath().endsWith(".m4a") || file.getPath().endsWith(".ogg")
+								|| file.getPath().endsWith(".flac") || file.getPath().endsWith(".aac")) {
+							// load song
+							SongLoader songLoader = new SongLoader();
+							Song song = songLoader.getSongFromFile(file);
+							if (song != null) {
+								songs.add(songLoader.getSongFromFile(file));
+							}
+						} else {
+							// no sound file
+							// System.out.println("filetype is unsupported");
 						}
 					}
 				}

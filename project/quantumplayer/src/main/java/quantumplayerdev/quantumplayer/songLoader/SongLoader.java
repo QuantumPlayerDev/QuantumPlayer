@@ -3,6 +3,12 @@ package quantumplayerdev.quantumplayer.songLoader;
 import java.io.File;
 import java.io.IOException;
 
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.AudioHeader;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
+
 import com.mpatric.mp3agic.ID3v1;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
@@ -12,18 +18,31 @@ import quantumplayerdev.quantumplayer.Song;
 
 public class SongLoader {
 
-	public Song getSongFromFile(File file) throws UnsupportedTagException, InvalidDataException, IOException {
-		if (file.getPath().endsWith(".mp3")) {
-			return getSongFromMP3(file);
-		} else if (file.getPath().endsWith(".m4a")) {
-			System.out.println(".m4a is unsupported");
-		} else {
-			System.out.println("filetype is unsupported");
-		}
-		return null;
+	public Song getSongFromFile(File file) {
+		return loadSongFromFile(file);
 	}
 
-	public Song getSongFromMP3(File file) throws UnsupportedTagException, InvalidDataException, IOException {
+	public Song loadSongFromFile(File file) {
+		AudioFile f = null;
+		try {
+			f = AudioFileIO.read(file);
+		} catch (Exception e) {
+			System.out.println("cant read file");
+			e.printStackTrace();
+		}
+		Tag tag = f.getTag();
+		AudioHeader audioHeader = f.getAudioHeader();
+		// System.out.println(f.getAudioHeader().getEncodingType());
+		Song song = new Song();
+		song.setPath(file.getPath());
+		song.setArtist(tag.getFirst(FieldKey.ARTIST));
+		song.setAlbum(tag.getFirst(FieldKey.ALBUM));
+		song.setTitle(tag.getFirst(FieldKey.TITLE));
+		song.setYear(tag.getFirst(FieldKey.YEAR));
+		return song;
+	}
+
+	public Song loadSongFromFileOld(File file) throws UnsupportedTagException, InvalidDataException, IOException {
 		Mp3File mp3File = new Mp3File(file);
 		Song song = new Song();
 		song.setPath(mp3File.getFilename());
