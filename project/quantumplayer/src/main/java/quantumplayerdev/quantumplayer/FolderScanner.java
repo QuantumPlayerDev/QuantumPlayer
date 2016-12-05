@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import quantumplayerdev.quantumplayer.songLoader.SongLoader;
 
 public class FolderScanner {
+	
+	private static final int MAX_SONGS = 100;
 	org.slf4j.Logger logger = LoggerFactory.getLogger(FolderScanner.class);
 	private List<Song> songs = new ArrayList<Song>();
 
@@ -24,6 +26,9 @@ public class FolderScanner {
 	private void addFiles(File[] files) {
 		try {
 			for (File file : files) {
+				if (songs.size() >= MAX_SONGS) {
+					break;
+				}
 				if (file.canRead() && file.exists() && !file.isHidden()) {
 					if (file.isDirectory()) {
 						addFiles(file.listFiles());
